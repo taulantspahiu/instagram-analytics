@@ -1,0 +1,19 @@
+{
+  "name": "instagram-analytics",
+  "version": "1.0.0",
+  "description": "Instagram Analytics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taulantspahiu/instagram-analytics.git"
+  },
+  "author": "Taulant Spahiu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/taulantspahiu/instagram-analytics/issues"
+  },
+  "homepage": "https://github.com/taulantspahiu/instagram-analytics#readme"
+}
