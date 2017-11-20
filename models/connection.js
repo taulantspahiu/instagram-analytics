@@ -1,7 +1,5 @@
 var mongoose = require('Mongoose'),
-    Schema = mongoose.Schema,
-    passport = require('passport'),
-    passportInstagramMongoose = require('passport-instagram')
+    Schema = mongoose.Schema;
 
 var connection = new Schema({
     user_id: {
@@ -26,5 +24,4 @@ var connection = new Schema({
     timestamps: true
 })
 
-Connection.plugin(passportInstagramMongoose);
 module.exports = mongoose.model('Connection', connection)
