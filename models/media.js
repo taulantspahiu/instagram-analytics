@@ -1,4 +1,4 @@
-var mongoose = require('Mongoose'),
+var mongoose = require('mongoose'),
     Schema = mongoose.schema,
     
 var media_object = new Schema({
