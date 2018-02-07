@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     passport = require('passport'),
-    passportInstagramMongoose = require('passport-instagram');
+    passportLocalMongoose = require('passport-local-mongoose');
 
 var user = new Schema({
     name: String,
@@ -21,5 +21,5 @@ var user = new Schema({
     timestamps: true
 })
 
-User.plugin(passportInstagramMongoose);
+user.plugin(passportLocalMongoose);
 module.exports = mongoose.model('User', user)

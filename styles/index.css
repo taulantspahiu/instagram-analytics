@@ -1,0 +1,79 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	background: #c1bdba;
+	font-family: 'Titillium Web', sans-serif;
+}
+a {
+	text-decoration: none;
+	color: #1ab188;
+	transition: .5s ease;
+}
+a:hover {
+	color: #179b77;
+}
+.form {
+	background: rgba(19, 35, 47, 0.9);
+	padding: 40px;
+	max-width: 600px;
+	margin: 40px auto;
+	border-radius: 4px;
+	box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+.tab-content > div:last-child {
+	display: none;
+}
+#signup > h1 {
+	text-align: center;
+	color: #ffffff;
+	font-weight: 600;
+	margin: 0 0 40px;
+}
+.button {
+	border: 0;
+	outline: none;
+	border-radius: 0;
+	padding: 15px 0;
+	font-size: 2rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	background: #1ab188;
+	color: #ffffff;
+	transition: all 0.5s ease;
+	-webkit-appearance: none;
+}
+.button:hover,
+.button:focus {
+	background: #179b77;
+	cursor: pointer;
+}
+.button-block {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+#signup > div {
+	margin: 10px;
+	color: white;
+	font-size: 20px;
+	text-align: center;
+}    
+#signup .help-div {
+	font-size: 16px;
+	color: #a7a7a7;
+	margin-bottom: 50px;
+}
+#signup > a, #signup > a:hover {
+	color: white;
+}
+.instagram-logo {
+	height: 43px;
+    margin-bottom: -10px;
+}
