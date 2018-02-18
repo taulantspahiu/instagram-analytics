@@ -1,8 +1,7 @@
-// TODO
-var ids = {
+module.exports = {
     instagram: {
         clientID: 'xxx',
         clientSecret: 'xxx',
-        callbackURL: 'xxx'
+        callbackURL: 'http://xxx:yyy/auth/instagram/callback'
     }
 }

@@ -1,0 +1,23 @@
+<link rel="stylesheet" type="text/css" href="/index.css"/>
+
+<% if (!user) { %>
+    <div class="form">
+        <div class="tab-content">
+            <form id="signup" action="/" method="post">
+                <h1>Instagram Analytics</h1>
+                <div>
+                    <label>Get Insight about your Instagram Account</label>
+                </div>
+                <div class="help-div">
+                    <label>Login with your Instagram Account:</label>
+                </div>
+                <a href="/auth/instagram" class="button button-block"/>
+                    <img src="http://localhost:3000/instagram-logo.png" alt="instagram-logo" class="instagram-logo"/> LOGIN
+                </a>
+            </form>
+        </div>
+        <!-- tab-content -->
+    </div>
+<% } else { %>
+    <h1>Hello <% user.username %></h1>
+<% } %>

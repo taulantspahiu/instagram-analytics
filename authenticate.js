@@ -1,33 +1,49 @@
+var express = require('express');
+//var path = require('path');
 var passport = require('passport');
-var instagramStrategy = require('passport-instagram').Strategy;
-var User = require('/user');
+var InstagramStrategy = require('passport-instagram').Strategy;
+var User = require('./models/user.js');
 var config = require('./config.js');
 
-passport.use = (new InstagramStrategy({
-    clientID: config.instagram.clientID,
-    clientSecret: config.instagram.clientSecret,
-    callbackURL: config.instagram.callbackURL
-}, function(accessToken, refreshToken, profile, done){
-    User.findOne({oauthID: profile.id}), function(err, user) {
-        if(err) {
-            console.log(err);
-        }
-        if(!err && user != null) {
-            done(null, user);
-        } else {
-            user = new User({
-                oauthID: profile.id,
-                name: profile.displayName,
-                created: Date.now()
-            });
-            user.save(function(err) {
+module.exports = function(passport){
+    passport.serializeUser(function(user, done) {
+        done(null, user);
+    });
+    passport.deserializeUser(function(obj, done) {
+        done(null, obj);
+    });
+    
+    passport.use(new InstagramStrategy({
+        clientID: config.instagram.clientID,
+        clientSecret: config.instagram.clientSecret,
+        callbackURL: config.instagram.callbackURL,
+        failWithError: true
+    }, function(accessToken, refreshToken, profile, done){
+        process.nextTick(function(){
+            User.findOne({oauthID: profile.id}, function(err, user) {
                 if(err) {
-                    console.log(err);
+                    return done(err, null);
+                }
+                if(!err && user != null) {
+                    //user found
+                    return done(null, user);
                 } else {
-                    // save user
-                    done(null, user);
+                    // user not found, create new user
+                    user = new User({
+                        oauthID: profile.id,
+                        name: profile.displayName,
+                        created: Date.now()
+                    });
+                    user.save(function(err) {
+                        if(err) {
+                            return done(err, null);
+                        } else {
+                            // save user
+                            return done(null, user);
+                        }
+                    });
                 }
             });
-        }
-    }
-}))
+        });
+    }));
+}
