@@ -1,8 +1,2 @@
-<h1>You are logged</h1>
-
-<script>
-    if (window.location.hash && window.location.hash.indexOf('#code=') !== -1) {
-        var accessToken = window.location.hash.replace('#code=', '');
-        window.location.href = '/callback?code=' + accessToken;
-    }
-</script>
+<h1>You are logged in.</h1>
+<a href="/logout">Logout</a>

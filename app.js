@@ -10,19 +10,17 @@ var passport = require('passport');
 var http = require('http');
 var InstagramStrategy = require('passport-instagram').Strategy;
 var User = require('./models/user.js');
-var util = require('util');
-var routes = require('./routes/index');
+//var util = require('util');
+var session = require('express-session');
 
-var app = express();
-
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect('mongodb://localhost:27017/instagram-analytics');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
     console.log("Connected correctly to server");
 });
 
-app.use('/', routes);
+var app = express();
 
 app.set('port', 3000);
 app.set('views', __dirname + '/views');
@@ -32,9 +30,12 @@ app.use(express.static(__dirname + '/images'));
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
+//app.use(methodOverride());
 app.use(passport.initialize());
 app.use(passport.session());
 require('./authenticate.js')(passport);
+var routes = require('./routes/index');
+app.use('/', routes);
 
 
 app.use(function(req,res,next){

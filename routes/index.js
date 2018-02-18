@@ -1,20 +1,19 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var InstagramStrategy = require('passport-instagram').Strategy;
+var config = require('../config.js');
+var User = require('../models/user.js');
 
 router = express.Router();
 
-
 router.get('/', function(req, res){
-    //res.send('hello world');
     res.render('login', { user: req.user });
 });
 
 router.get('/test', function(req, res){
     res.send('test is ok');
 });
-
-
 
 router.get('/account', ensureAuthenticated, function(req, res){
     res.render('account', { user: req.user });
@@ -24,6 +23,9 @@ router.get('/home', function(req, res){
     res.render('index', { user: req.user });
 });
 
+router.get('/logged-out', function(req, res){
+    res.render('loggedOut', { user: req.user });
+});
 
 
 // GET /auth/instagram
@@ -50,16 +52,14 @@ router.get('/auth/instagram',
 router.get('/auth/instagram/callback',
     passport.authenticate('instagram', { failureRedirect: '/login' }),
     function (req, res) {
-        console.log('callback req', req);
         res.redirect('/home');
     }
 );
 
 router.get('/logout', function(req, res){
     req.logout();
-    res.redirect('/');
+    res.redirect('/logged-out');
 });
-
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
@@ -68,8 +68,8 @@ router.get('/logout', function(req, res){
 //   login page.
 
 function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()){ return next();}
-    res.redirect('/login');
+    if (req.isAuthenticated()) { return next();}
+    res.redirect('/');
 }
 
 module.exports = router;
