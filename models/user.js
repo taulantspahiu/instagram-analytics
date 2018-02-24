@@ -5,19 +5,16 @@ var mongoose = require('mongoose'),
 
 var user = new Schema({
     oauthID: Number,
-    name: String,
+    display_name: String,
+    full_name: String,
+    profile_picture: String,
     username: String,
-    password: String,
-    email: String,
-    followers_count: Number,
+    followed_count: Number,
     follows_count: Number,
     media_count: Number,
-    biography: String,
-    profile_picture: String,
+    bio: String,
     website: String,
-    followers_difference: Number,
-    created: Date,
-    updated: Date,
+    is_business: Boolean
 }, {
     timestamps: true
 })

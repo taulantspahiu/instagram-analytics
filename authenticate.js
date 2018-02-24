@@ -9,6 +9,7 @@ module.exports = function(passport){
     passport.serializeUser(function(user, done) {
         done(null, user);
     });
+    
     passport.deserializeUser(function(obj, done) {
         done(null, obj);
     });
@@ -16,8 +17,7 @@ module.exports = function(passport){
     passport.use(new InstagramStrategy({
         clientID: config.instagram.clientID,
         clientSecret: config.instagram.clientSecret,
-        callbackURL: config.instagram.callbackURL,
-        failWithError: true
+        callbackURL: config.instagram.callbackURL
     }, function(accessToken, refreshToken, profile, done){
         process.nextTick(function(){
             User.findOne({oauthID: profile.id}, function(err, user) {
@@ -26,20 +26,28 @@ module.exports = function(passport){
                 }
                 if(!err && user != null) {
                     //user found
-                    return done(null, user);
+                    return done(null, profile);
                 } else {
                     // user not found, create new user
                     user = new User({
                         oauthID: profile.id,
-                        name: profile.displayName,
-                        created: Date.now()
+                        display_name: profile.displayName,
+                        full_name: profile._json.data.full_name,
+                        profile_picture: profile._json.data.profile_picture,
+                        username: profile._json.data.username,
+                        followed_count: profile._json.data.counts.followed_by,
+                        follows_count: profile._json.data.counts.follows,
+                        media_count: profile._json.data.counts.media,
+                        bio: profile._json.data.bio,
+                        website: profile._json.data.website,
+                        is_business: profile._json.data.is_business
                     });
                     user.save(function(err) {
                         if(err) {
                             return done(err, null);
                         } else {
                             // save user
-                            return done(null, user);
+                            return done(null, profile);
                         }
                     });
                 }

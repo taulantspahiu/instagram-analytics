@@ -1,17 +1,19 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var util = require('util');
+var InstagramStrategy = require('passport-instagram').Strategy;
+
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var methodOverride = require('method-override');
+
 var config = require('./config.js');
 var ejs = require('ejs');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var passport = require('passport');
 var http = require('http');
-var InstagramStrategy = require('passport-instagram').Strategy;
 var User = require('./models/user.js');
-//var util = require('util');
-var session = require('express-session');
 
 mongoose.connect('mongodb://localhost:27017/instagram-analytics');
 var db = mongoose.connection;
@@ -25,14 +27,24 @@ var app = express();
 app.set('port', 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs'); 
-app.use(express.static(__dirname + '/styles'));
-app.use(express.static(__dirname + '/images'));
+
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
-//app.use(methodOverride());
+//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride());
+app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(express.static(__dirname + '/styles'));
+app.use(express.static(__dirname + '/images'));
+// Global vars
+/*app.use(function(req, res, next){
+    next();
+});*/
+
+
 require('./authenticate.js')(passport);
 var routes = require('./routes/index');
 app.use('/', routes);
