@@ -1,3 +1,4 @@
+// TODO: Finish gulp file for ejs
 var gulp = require('gulp');
 var ejs = require('gulp-ejs');
 var minifyCSS = require('gulp-csso');
