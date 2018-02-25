@@ -11,10 +11,6 @@ router.get('/', function(req, res){
     res.render('login', { user: req.user });
 });
 
-router.get('/test', function(req, res){
-    res.send('test is ok');
-});
-
 router.get('/account', ensureAuthenticated, function(req, res){
     res.render('account', { user: req.user });
 });
@@ -22,11 +18,6 @@ router.get('/account', ensureAuthenticated, function(req, res){
 router.get('/home', function(req, res){
     res.render('index', { user: req.user });
 });
-
-router.get('/logged-out', function(req, res){
-    res.render('loggedOut', { user: req.user });
-});
-
 
 // GET /auth/instagram
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -58,7 +49,7 @@ router.get('/auth/instagram/callback',
 
 router.get('/logout', function(req, res){
     req.logout();
-    res.redirect('/logged-out');
+    res.redirect('/');
 });
 
 // Simple route middleware to ensure user is authenticated.

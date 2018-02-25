@@ -1,6 +1,8 @@
 <link rel="stylesheet" type="text/css" href="/index.css"/>
 
-<% if (!user) { %>
+<% if (typeof(user) != "undefined") { %>
+    <h1>Hello <%= user.username %></h1>
+<% } else { %>
     <div class="form">
         <div class="tab-content">
             <form id="signup" action="/" method="post">
@@ -18,6 +20,5 @@
         </div>
         <!-- tab-content -->
     </div>
-<% } else { %>
-    <h1>Hello <% user.username %></h1>
+    <iframe src="https://instagram.com/accounts/logout/" width="0" height="0" />
 <% } %>
