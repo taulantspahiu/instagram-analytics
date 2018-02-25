@@ -4,7 +4,7 @@
         <title>Instagram Analytics</title>
     </head>
     <body>
-        <% if (user) { %>
+        <% if (typeof(user) != "undefined") { %>
             <p>
                 <a href="/">Home</a> | 
                 <a href="/login">Log In</a>
@@ -16,6 +16,8 @@
                 <a href="/logout">Log Out</a>
             </p>
         <% } %>
-        <%- body %>
+        <% if (typeof(body) != "undefined") { %>
+            <%- body %>
+        <% } %>
     </body>
 </html>
