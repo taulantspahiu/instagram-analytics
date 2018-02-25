@@ -37,8 +37,8 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(__dirname + '/styles'));
-app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname + '/public/styles'));
+app.use(express.static(__dirname + '/public/images'));
 // Global vars
 /*app.use(function(req, res, next){
     next();
